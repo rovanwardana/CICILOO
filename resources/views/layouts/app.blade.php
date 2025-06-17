@@ -11,8 +11,7 @@
 <body class="bg-[#EEF1F9] px-[20px] py-[24px]">
 
     <!-- Header -->
-    <header
-        class="fixed top-0 left-0 right-0 h-[49px] bg-[#EEF1F9] flex justify-between items-center px-[20px] z-20 mt-[8px]">
+    <header class="fixed top-0 left-0 right-0 h-[57px] bg-[#EEF1F9] flex justify-between items-center px-[20px] z-20">
         <!-- Logo -->
         <div class="flex items-center gap-2 text-[#071739]">
             <img src="/assets/image/logo.svg" alt="logo" class="w-[117px] h-[52px] object-contain">
@@ -90,7 +89,7 @@
                     <a href="{{ route($menu['route']) }}"
                         class="flex items-center gap-2 px-4 h-[52px] rounded-[9px] transition-all duration-200 {{ request()->routeIs($menu['route']) ? 'bg-[#A4B5C4] text-[#071739]' : 'text-white hover:bg-[#2a3950]' }}">
                         {!! $menu['icon'] !!}
-                        <span>{{ $menu['label'] }}</span>
+                        <span class="label">{{ $menu['label'] }}</span>
                     </a>
                 @endforeach
             </div>
@@ -107,7 +106,7 @@
                         <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
                         <path d="M12 17h.01" />
                     </svg>
-                    <span>Help</span>
+                    <span class="label">Help</span>
                 </a>
                 <a href="#"
                     class="flex items-center gap-2 px-4 h-[52px] rounded-[9px] text-white hover:bg-[#2a3950]">
@@ -117,7 +116,7 @@
                         <path d="M21 12H9" />
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                     </svg>
-                    <span>Log out</span>
+                    <span class="label">Log out</span>
                 </a>
             </div>
         </aside>
