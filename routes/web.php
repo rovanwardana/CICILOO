@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
-    return view('index');
-});
+    return view('index'); // Langsung ke index.blade.php
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,3 +29,11 @@ Route::get('/settings', function () {
 Route::get('/help', function () {
     return 'Halaman Help';
 })->name('help');
+
+
+Route::post('/logout', function () {
+    // Simulasikan logout tanpa Auth (karena tidak pakai autentikasi)
+    // Hapus sesi jika ada (opsional, tergantung kebutuhan)
+    \Illuminate\Support\Facades\Session::flush();
+    return redirect('/'); // Arahkan ke index.blade.php
+})->name('logout');

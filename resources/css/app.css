@@ -1,2 +1,15 @@
 @import 'tailwindcss';
 @source "../views";
+
+#logoutPopup {
+    transition: opacity 0.2s ease-in-out;
+}
+
+#logoutPopup.hidden {
+    opacity: 0;
+    pointer-events: none; /* Cegah interaksi saat tersembunyi */
+}
+
+#logoutPopup:not(.hidden) {
+    opacity: 1;
+}
