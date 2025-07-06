@@ -23,7 +23,9 @@
             <input type="text" placeholder="Search..."
                 class="w-[200px] px-[16px] py-[8px] rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4B6382] text-sm bg-[#D7D9E1]" />
             <img src="/assets/icons/notifications.svg" alt="Notifications" class="w-[24px] h-[24px] cursor-pointer">
-            <img src="/assets/icons/user.svg" alt="User" class="w-[24px] h-[24px] cursor-pointer">
+            <a href="{{ route('profile') }}">
+                <img src="/assets/icons/user.svg" alt="User" class="w-[24px] h-[24px] cursor-pointer">
+            </a>
             <img src="/assets/icons/log-out.svg" alt="Logout" class="w-[24px] h-[24px] cursor-pointer">
         </div>
     </header>
@@ -64,7 +66,7 @@
                                 '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>',
                         ],
                         [
-                            'route' => 'bill',
+                            'route' => 'bills.create',
                             'label' => 'New Bill',
                             'icon' =>
                                 '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>',
