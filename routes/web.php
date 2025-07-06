@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\BillController;
 
 Route::get('/', function () {
     return view('index');
@@ -14,9 +15,8 @@ Route::get('/dashboard', function () {
 Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
 Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
 
-Route::get('/bill', function () {
-    return view('bill');
-})->name('bill');
+Route::get('/bills/create', [BillController::class, 'create'])->name('bills.create');
+Route::post('/bills', [BillController::class, 'store'])->name('bills.store');
 
 Route::get('/friends', function () {
     return 'Halaman Friends';
