@@ -14,9 +14,9 @@ Route::get('/transaction', function () {
     return 'Halaman Transaction';
 })->name('transaction.index');
 
-Route::get('/bill/create', function () {
-    return 'Halaman Create Bill';
-})->name('bill.create');
+Route::get('/bill', function () {
+    return view('bill');
+})->name('bill');
 
 Route::get('/friends', function () {
     return 'Halaman Friends';
