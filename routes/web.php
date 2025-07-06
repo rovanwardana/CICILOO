@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
     return view('index');
@@ -10,9 +11,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/transaction', function () {
-    return 'Halaman Transaction';
-})->name('transaction.index');
+Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
 
 Route::get('/bill/create', function () {
     return 'Halaman Create Bill';
