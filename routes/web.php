@@ -14,9 +14,9 @@ Route::get('/dashboard', function () {
 Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
 Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
 
-Route::get('/bill/create', function () {
-    return 'Halaman Create Bill';
-})->name('bill.create');
+Route::get('/bill', function () {
+    return view('bill');
+})->name('bill');
 
 Route::get('/friends', function () {
     return 'Halaman Friends';
