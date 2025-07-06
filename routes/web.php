@@ -7,8 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
-    return view('index');
-});
+    return view('index'); // Langsung ke index.blade.php
+})->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
@@ -36,6 +36,17 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
 
-    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
-});
+
+Route::get('/help', function () {
+    return 'Halaman Help';
+})->name('help');
+
+Route::post('/logout', function () {
+    \Illuminate\Support\Facades\Session::flush();
+    return redirect('/');
+})->name('logout');
+
+// Tambahkan ini tanpa menghapus bagian sebelumnya
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+

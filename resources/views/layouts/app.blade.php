@@ -97,7 +97,9 @@
             </div>
 
             <!-- Help & Logout -->
+            
             <div class="flex flex-col gap-4">
+            @include('logout_popup')
                 <a href="#"
                     class="menu-item flex items-center gap-2 px-4 h-[52px] rounded-[9px] transition-all duration-200 
                         {{ request()->routeIs('help') ? 'bg-[#A4B5C4] text-[#071739]' : 'text-white hover:bg-[#2a3950]' }}">
