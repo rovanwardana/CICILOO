@@ -31,11 +31,14 @@ Route::post('/profile', [UserController::class, 'update'])->name('profile.update
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-// Autentikasi (hanya guest)
+// Hanya untuk guest (belum login)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
 
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+});
 
 Route::get('/help', function () {
     return 'Halaman Help';
@@ -45,8 +48,3 @@ Route::post('/logout', function () {
     \Illuminate\Support\Facades\Session::flush();
     return redirect('/');
 })->name('logout');
-
-// Tambahkan ini tanpa menghapus bagian sebelumnya
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
-
