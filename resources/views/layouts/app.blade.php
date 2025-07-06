@@ -23,7 +23,9 @@
             <input type="text" placeholder="Search..."
                 class="w-[200px] px-[16px] py-[8px] rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4B6382] text-sm bg-[#D7D9E1]" />
             <img src="/assets/icons/notifications.svg" alt="Notifications" class="w-[24px] h-[24px] cursor-pointer">
-            <img src="/assets/icons/user.svg" alt="User" class="w-[24px] h-[24px] cursor-pointer">
+            <a href="{{ route('profile') }}">
+                <img src="/assets/icons/user.svg" alt="User" class="w-[24px] h-[24px] cursor-pointer">
+            </a>
             <img src="/assets/icons/log-out.svg" alt="Logout" class="w-[24px] h-[24px] cursor-pointer">
         </div>
     </header>
