@@ -32,10 +32,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/notifications', [TransactionController::class, 'notifications'])->name('notifications.index');
 
-// Autentikasi (hanya guest)
+// Hanya untuk guest (belum login)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
+<<<<<<< HEAD
+=======
+
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+>>>>>>> 1875220b053c77572db0e41ca8b30fa0b3e336e3
 });
 
 Route::get('/help', function () {
@@ -46,8 +52,3 @@ Route::post('/logout', function () {
     \Illuminate\Support\Facades\Session::flush();
     return redirect('/');
 })->name('logout');
-
-// Tambahkan ini tanpa menghapus bagian sebelumnya
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
-

@@ -93,9 +93,16 @@ class AuthController extends Controller
     {
         Auth::logout();
 
+        // Invalidate session
         $request->session()->invalidate();
+
+        // Regenerate CSRF token
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        // Hapus cookie remember me
+        \Cookie::queue(\Cookie::forget(Auth::getRecallerName()));
+
+        return redirect('/');
     }
+
 }
