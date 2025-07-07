@@ -30,12 +30,13 @@ Route::post('/profile', [UserController::class, 'update'])->name('profile.update
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/notifications', [TransactionController::class, 'notifications'])->name('notifications.index');
 
 // Autentikasi (hanya guest)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
-
+});
 
 Route::get('/help', function () {
     return 'Halaman Help';
