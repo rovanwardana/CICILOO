@@ -11,7 +11,32 @@ Route::get('/', function () {
     return view('index'); // Langsung ke index.blade.php
 })->name('home');
 
+
 // Route untuk guest (belum login) - redirect ke dashboard jika sudah login
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+});
+
+Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
+
+Route::get('/bills/create', [BillController::class, 'create'])->name('bills.create');
+Route::post('/bills', [BillController::class, 'store'])->name('bills.store');
+
+Route::get('/friends', fn() => 'Halaman Friends')->name('friends.index');
+    
+Route::get('/settings', fn() => 'Halaman Settings')->name('settings');
+Route::get('/help', fn() => 'Halaman Help')->name('help');
+
+Route::get('/profile', [UserController::class, 'edit'])->name('profile');
+Route::post('/profile', [UserController::class, 'update'])->name('profile.update');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+// Hanya untuk guest (belum login)
+
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
@@ -19,6 +44,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
 });
+
 
 // Route yang memerlukan autentikasi
 Route::middleware('auth')->group(function () {
@@ -48,3 +74,12 @@ Route::middleware('auth')->group(function () {
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+Route::get('/help', function () {
+    return 'Halaman Help';
+})->name('help');
+
+Route::post('/logout', function () {
+    \Illuminate\Support\Facades\Session::flush();
+    return redirect('/');
+})->name('logout');
