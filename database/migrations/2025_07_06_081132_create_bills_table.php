@@ -16,13 +16,13 @@ return new class extends Migration
             $table->date('date');
             $table->date('due_date');
             $table->string('bill_type');
-            $table->unsignedBigInteger('customer_id');
             $table->string('bill_number')->unique();
+            $table->foreignId('customer_id')->constrained('users')->onDelete('cascade');
             $table->string('split_method');
             $table->text('notes')->nullable();
+            $table->decimal('total_amount', 10, 2)->nullable(); // Tambahan
             $table->timestamps();
         });
-
     }
 
     /**
