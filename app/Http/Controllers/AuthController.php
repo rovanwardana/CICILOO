@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
@@ -93,16 +94,12 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        // Invalidate session
         $request->session()->invalidate();
-
-        // Regenerate CSRF token
         $request->session()->regenerateToken();
 
-        // Hapus cookie remember me
-        \Cookie::queue(\Cookie::forget(Auth::getRecallerName()));
+        Cookie::queue(Cookie::forget(Auth::getRecallerName()));
+        Cookie::queue(Cookie::forget('laravel_session'));
 
-        return redirect('/');
+        return redirect('/')->with('message', 'Anda telah logout.');
     }
-
 }

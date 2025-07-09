@@ -38,11 +38,24 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    public function bills()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(Bill::class, 'customer_id');
+    }
+
+    public function billsAsParticipant()
+    {
+        return $this->belongsToMany(Bill::class, 'bill_user');
+    }
+
+    public function items()
+    {
+        return $this->belongsToMany(Item::class, 'bill_participant_items', 'bill_user_id', 'item_id')
+            ->withPivot('qty');
     }
 }
