@@ -53,7 +53,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //New Bill functionality
+    // Notification Functionality
+    const notificationButton = document.getElementById('notificationButton');
+    const notificationPanel = document.getElementById('notificationPanel');
+    const notificationList = document.getElementById('notificationList');
+    const notificationBadge = document.getElementById('notification-badge');
+
+    if (notificationButton && notificationPanel && notificationList && notificationBadge) {
+        // Ambil data notifikasi saat halaman dimuat
+        fetch('/notifications')
+            .then(response => response.json())
+            .then(data => {
+                const notifications = data.notifications;
+                const count = data.count;
+
+                // Update badge
+                if (count > 0) {
+                    notificationBadge.textContent = count;
+                    notificationBadge.classList.remove('hidden');
+                }
+
+                // Isi panel notifikasi
+                notificationList.innerHTML = '';
+                notifications.forEach(notification => {
+                    const li = document.createElement('li');
+                    li.className = 'flex justify-between items-center p-2 hover:bg-gray-100 rounded';
+                    li.innerHTML = `
+                        <span>${notification.message}</span>
+                        ${notification.amount ? `<span class="font-semibold">${notification.amount}</span>` : ''}
+                        <span class="text-sm text-gray-500">${notification.time}</span>
+                    `;
+                    notificationList.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error fetching notifications:', error));
+
+        // Toggle panel
+        notificationButton.addEventListener('click', () => {
+            notificationPanel.classList.toggle('hidden');
+        });
+
+        // Tutup panel saat klik di luar
+        document.addEventListener('click', (event) => {
+            if (!notificationButton.contains(event.target) && !notificationPanel.contains(event.target)) {
+                notificationPanel.classList.add('hidden');
+            }
+        });
+    } else {
+        console.error('Notification elements not found:', { notificationButton, notificationPanel, notificationList, notificationBadge });
+    }
+
+    // New Bill functionality
     initializeNewBillForm();
 });
 

@@ -22,7 +22,21 @@
         <div class="flex items-center gap-4">
             <input type="text" placeholder="Search..."
                 class="w-[200px] px-[16px] py-[8px] rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4B6382] text-sm bg-[#D7D9E1]" />
-            <img src="/assets/icons/notifications.svg" alt="Notifications" class="w-[24px] h-[24px] cursor-pointer">
+            <!-- Di dalam header, ganti bagian notifikasi -->
+            <!-- Notifikasi -->
+            <div class="relative">
+                <button id="notificationButton" class="cursor-pointer focus:outline-none">
+                    <img src="/assets/icons/notifications.svg" alt="Notifications" class="w-[24px] h-[24px]">
+                </button>
+                <span id="notification-badge" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden"></span>
+                <div id="notificationPanel" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg p-4 z-30 border border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Notifications</h3>
+                    <div id="notificationList" class="space-y-3 max-h-64 overflow-y-auto">
+                        <!-- Isi akan diisi oleh JavaScript -->
+                    </div>
+                </div>
+            </div>
+
             <a href="{{ route('profile') }}">
                 <img src="/assets/icons/user.svg" alt="User" class="w-[24px] h-[24px] cursor-pointer">
             </a>
@@ -52,47 +66,69 @@
 
                 <!-- Navigation Menu -->
                 @php
-                    $menus = [
-                        [
-                            'route' => 'dashboard',
-                            'label' => 'Dashboard',
-                            'icon' =>
-                                '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>',
-                        ],
-                        [
-                            'route' => 'transaction.index',
-                            'label' => 'Transaction',
-                            'icon' =>
-                                '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>',
-                        ],
-                        [
-                            'route' => 'bills.create',
-                            'label' => 'New Bill',
-                            'icon' =>
-                                '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>',
-                        ],
-                        [
-                            'route' => 'friends.index',
-                            'label' => 'Friends',
-                            'icon' =>
-                                '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2v2"/><path d="M17.915 22a6 6 0 0 0-12 0"/><path d="M8 2v2"/><circle cx="12" cy="12" r="4"/><rect x="3" y="4" width="18" height="18" rx="2"/></svg>',
-                        ],
-                        [
-                            'route' => 'settings',
-                            'label' => 'Settings',
-                            'icon' =>
-                                '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>',
-                        ],
-                    ];
+                $menus = [
+                [
+                'route' => 'dashboard',
+                'label' => 'Dashboard',
+                'icon' =>
+                '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="7" height="9" x="3" y="3" rx="1" />
+                    <rect width="7" height="5" x="14" y="3" rx="1" />
+                    <rect width="7" height="9" x="14" y="12" rx="1" />
+                    <rect width="7" height="5" x="3" y="16" rx="1" />
+                </svg>',
+                ],
+                [
+                'route' => 'transaction.index',
+                'label' => 'Transaction',
+                'icon' =>
+                '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m16 3 4 4-4 4" />
+                    <path d="M20 7H4" />
+                    <path d="m8 21-4-4 4-4" />
+                    <path d="M4 17h16" />
+                </svg>',
+                ],
+                [
+                'route' => 'bills.create',
+                'label' => 'New Bill',
+                'icon' =>
+                '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="M12 5v14" />
+                </svg>',
+                ],
+                [
+                'route' => 'friends.index',
+                'label' => 'Friends',
+                'icon' =>
+                '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 2v2" />
+                    <path d="M17.915 22a6 6 0 0 0-12 0" />
+                    <path d="M8 2v2" />
+                    <circle cx="12" cy="12" r="4" />
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                </svg>',
+                ],
+                [
+                'route' => 'settings',
+                'label' => 'Settings',
+                'icon' =>
+                '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                    <circle cx="12" cy="12" r="3" />
+                </svg>',
+                ],
+                ];
                 @endphp
 
                 <!-- Navigation Menu -->
                 @foreach ($menus as $menu)
-                    <a href="{{ route($menu['route']) }}"
-                        class="flex items-center gap-2 px-4 h-[52px] rounded-[9px] transition-all duration-200 {{ request()->routeIs($menu['route']) ? 'bg-[#A4B5C4] text-[#071739]' : 'text-white hover:bg-[#2a3950]' }}">
-                        {!! $menu['icon'] !!}
-                        <span class="label">{{ $menu['label'] }}</span>
-                    </a>
+                <a href="{{ route($menu['route']) }}"
+                    class="flex items-center gap-2 px-4 h-[52px] rounded-[9px] transition-all duration-200 {{ request()->routeIs($menu['route']) ? 'bg-[#A4B5C4] text-[#071739]' : 'text-white hover:bg-[#2a3950]' }}">
+                    {!! $menu['icon'] !!}
+                    <span class="label">{{ $menu['label'] }}</span>
+                </a>
                 @endforeach
             </div>
 

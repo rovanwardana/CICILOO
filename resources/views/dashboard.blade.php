@@ -18,9 +18,9 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="lucide lucide-users-round-icon lucide-users-round">
-                    <path d="M18 21a8 8 0 0 0-16 0"/>
-                    <circle cx="10" cy="8" r="5"/>
-                    <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/>
+                    <path d="M18 21a8 8 0 0 0-16 0" />
+                    <circle cx="10" cy="8" r="5" />
+                    <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
                 </svg>
                 <span class="mt-1 font-medium text-gray-800">Groups</span>
             </div>
@@ -30,10 +30,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="lucide lucide-receipt-text-icon lucide-receipt-text">
-                    <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/>
-                    <path d="M14 8H8"/>
-                    <path d="M16 12H8"/>
-                    <path d="M13 16H8"/>
+                    <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" />
+                    <path d="M14 8H8" />
+                    <path d="M16 12H8" />
+                    <path d="M13 16H8" />
                 </svg>
                 <span class="mt-1 font-medium text-gray-800">Bills</span>
             </div>
@@ -71,21 +71,23 @@
         <div class="bg-white p-6 rounded-xl shadow">
             <h2 class="text-lg font-semibold text-gray-800">Recent Activity</h2>
             <ul class="mt-4 space-y-4 text-gray-700">
-                <li class="flex justify-between items-center">
+                <li class="flex justify-between items-center" data-notify="true">
                     <span>💸 John paid you</span>
                     <span class="font-semibold">Rp 50.000</span>
                 </li>
-                <li class="flex justify-between items-center">
+                <li class="flex justify-between items-center" data-notify="true">
                     <span>💰 You owe Emma</span>
                     <span class="font-semibold">Rp 20.000</span>
                 </li>
-                <li class="flex justify-between items-center">
-                    <span>📋 New bill created: <strong>Lunch</strong></span>
-                </li>
-                <li class="flex justify-between items-center text-gray-500 text-sm">
-                    <span>💸 John paid you (Yesterday)</span>
-                    <span class="font-semibold">Rp 50.000</span>
-                </li>
+                <!-- Item lain tanpa notifikasi -->
+            </ul>
+            <li class="flex justify-between items-center">
+                <span>📋 New bill created: <strong>Lunch</strong></span>
+            </li>
+            <li class="flex justify-between items-center text-gray-500 text-sm">
+                <span>💸 John paid you (Yesterday)</span>
+                <span class="font-semibold">Rp 50.000</span>
+            </li>
             </ul>
         </div>
     </div>

@@ -11,7 +11,6 @@ Route::get('/', function () {
     return view('index'); // Langsung ke index.blade.php
 })->name('home');
 
-// Route untuk guest (belum login) - redirect ke dashboard jika sudah login
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
@@ -29,6 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
     Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
     
+
+    //Notif
+    Route::get('/notifications', [TransactionController::class, 'notifications'])->name('notification.index');
+
     // Bill routes
     Route::get('/bills/create', [BillController::class, 'create'])->name('bills.create');
     Route::post('/bills', [BillController::class, 'store'])->name('bills.store');
@@ -45,3 +48,4 @@ Route::middleware('auth')->group(function () {
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+

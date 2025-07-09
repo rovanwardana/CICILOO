@@ -10,21 +10,6 @@
 </div>
 
 <div class="bg-white rounded-xl shadow p-6">
-    <!-- Tabs Filter -->
-    <div class="flex space-x-4 mb-6">
-        <button class="text-gray-600 hover:text-gray-900 py-2 px-4 border-b-2 border-transparent hover:border-gray-300">All</button>
-        <button class="text-gray-600 hover:text-gray-900 py-2 px-4 border-b-2 border-transparent hover:border-gray-300">You Owe</button>
-        <button class="text-gray-600 hover:text-gray-900 py-2 px-4 border-b-2 border-transparent hover:border-gray-300">You Are Owed</button>
-        <button class="text-gray-600 hover:text-gray-900 py-2 px-4 border-b-2 border-transparent hover:border-gray-300">Unfinished</button>
-        <button class="text-gray-600 hover:text-gray-900 py-2 px-4 border-b-2 border-transparent hover:border-gray-300">Completed</button>
-    </div>
-
-    <!-- Date Range -->
-    <div class="flex justify-between items-center mb-6">
-        <div class="text-gray-600">28 Dec 22 - 10 Jan 23</div>
-        <input type="text" class="border rounded px-3 py-1" placeholder="Select date range" />
-    </div>
-
     <!-- Transaction Table -->
     <div class="overflow-x-auto">
         <table class="w-full text-left">
