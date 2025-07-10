@@ -16,9 +16,8 @@ class Bill extends Model
     public function participants()
     {
         return $this->belongsToMany(User::class, 'bill_user', 'bill_id', 'user_id')
-            ->withPivot('id', 'amount_to_pay', 'payment_status'); // ← penting!
+            ->withPivot('id', 'amount_to_pay', 'payment_status');
     }
-
 
     public function items()
     {
@@ -27,7 +26,6 @@ class Bill extends Model
 
     public function participantItems()
     {
-        // Ganti hasMany dengan relasi yang sesuai
         return $this->hasManyThrough(
             BillParticipantItem::class,
             BillUser::class,
@@ -35,6 +33,6 @@ class Bill extends Model
             'bill_user_id', // Foreign key di bill_participant_items yang menunjuk ke bill_user
             'id', // Primary key di bills
             'id' // Primary key di bill_user
-        );
+        )->with('item');
     }
 }

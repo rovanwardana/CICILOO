@@ -10,9 +10,26 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::all(); // Ambil semua transaksi dari database
+        $userId = Auth::id();
+
+        $transactions = \App\Models\Transaction::whereHas('bill.participants', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })
+            ->with([
+                'bill',
+                'bill.participants' => function ($query) {
+                    $query->withPivot('amount_to_pay', 'payment_status');
+                },
+                'bill.participantItems' => function ($query) {
+                    $query->with('item');
+                },
+                'bill.items'
+            ])
+            ->get();
+
         return view('transaction', compact('transactions'));
     }
+
 
     public function store(Request $request)
     {

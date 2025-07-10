@@ -179,33 +179,39 @@ class BillController extends Controller
 
     public function updateStatuses(Request $request)
     {
-        $request->validate([
-            'transaction_id' => 'required|exists:transactions,id',
-            'statuses' => 'required|array',
-            'statuses.*' => 'required|in:Pending,Paid',
-        ]);
+        try {
+            $request->validate([
+                'transaction_id' => 'required|exists:transactions,id',
+                'statuses' => 'required|array',
+                'statuses.*' => 'required|in:Pending,Paid',
+            ]);
 
-        $transaction = Transaction::findOrFail($request->transaction_id);
-        $bill = $transaction->bill;
+            $transaction = Transaction::findOrFail($request->transaction_id);
+            $bill = $transaction->bill;
 
-        foreach ($request->statuses as $billUserId => $status) {
-            $billUser = \App\Models\BillUser::findOrFail($billUserId);
-            $billUser->payment_status = $status;
-            $billUser->save();
+            foreach ($request->statuses as $billUserId => $status) {
+                $billUser = \App\Models\BillUser::findOrFail($billUserId);
+                $billUser->payment_status = $status;
+                $billUser->save();
+            }
+
+            // Update transaction status based on participant statuses
+            $statuses = $bill->participants()->pluck('bill_user.payment_status');
+            if ($statuses->every(fn($status) => $status === 'Paid')) {
+                $transaction->status = 'Completed';
+            } elseif ($statuses->contains('Paid')) {
+                $transaction->status = 'Partially';
+            } else {
+                $transaction->status = 'Pending';
+            }
+
+            $transaction->save();
+
+            return response()->json(['success' => true, 'message' => 'Statuses updated successfully']);
+        } catch (\Exception $e) {
+            Log::error('Failed to update statuses: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Failed to update statuses'], 500);
         }
-
-        $statuses = $bill->participants()->pluck('bill_user.payment_status');
-        if ($statuses->every(fn($status) => $status === 'Paid')) {
-            $transaction->status = 'Completed';
-        } elseif ($statuses->contains('Paid')) {
-            $transaction->status = 'Partially';
-        } else {
-            $transaction->status = 'Pending';
-        }
-
-        $transaction->save();
-
-        return response()->json(['success' => true]);
     }
 
     public function destroy($id)

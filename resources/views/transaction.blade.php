@@ -7,6 +7,17 @@
         <h1 class="text-2xl font-semibold text-gray-800">Transaction</h1>
     </div>
 
+    @if (session('success'))
+        <div class="bg-green-100 text-green-700 p-4 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="bg-white rounded-xl shadow p-6">
         <div class="overflow-x-auto">
             <table class="w-full text-left">
@@ -131,6 +142,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Toggle detail row
             document.querySelectorAll('.view-details').forEach(button => {
                 button.addEventListener('click', () => {
                     const transactionId = button.getAttribute('data-id');
@@ -139,31 +151,43 @@
                 });
             });
 
+            // Delete transaction
             document.querySelectorAll('.delete-transaction').forEach(button => {
                 button.addEventListener('click', () => {
                     const transactionId = button.getAttribute('data-id');
                     if (confirm('Are you sure you want to delete this transaction?')) {
                         fetch(`/transaction/${transactionId}`, {
-                                method: 'DELETE',
-                                headers: {
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                }
-                            })
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.success) location.reload();
-                                else alert('Gagal menghapus transaksi.');
-                            });
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Content-Type': 'application/json',
+                            },
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                location.reload();
+                            } else {
+                                alert('Gagal menghapus transaksi.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Terjadi kesalahan saat menghapus transaksi.');
+                        });
                     }
                 });
             });
 
+            // Save statuses
             document.querySelectorAll('.save-statuses').forEach(button => {
                 button.addEventListener('click', () => {
                     const form = button.closest('.status-form');
                     const transactionId = button.getAttribute('data-transaction-id');
                     const formData = new FormData(form);
                     const statuses = {};
+
+                    // Collect statuses from form
                     formData.forEach((value, key) => {
                         const match = key.match(/^statuses\[(\d+)\]$/);
                         if (match) {
@@ -172,18 +196,29 @@
                         }
                     });
 
-                    fetch(`/transaction/update-statuses`, {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            body: formData
-                        })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success) location.reload();
-                            else alert('Gagal menyimpan status.');
-                        });
+                    fetch('/transaction/update-statuses', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            transaction_id: transactionId,
+                            statuses: statuses,
+                        }),
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            location.reload();
+                        } else {
+                            alert('Gagal menyimpan status.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan saat menyimpan status.');
+                    });
                 });
             });
         });
