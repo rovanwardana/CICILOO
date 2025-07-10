@@ -67,7 +67,7 @@
                 <h2 class="text-lg font-bold text-green-600">You are owed</h2>
                 <p class="text-3xl mt-2 text-green-600">Rp {{ number_format($youAreOwed, 2) }}</p>
             </div>
-            <img src="{{ asset('assets/image/owed.svg') }}" alt="You are owed" class="w-35 h-35">
+            <img src="{{ asset('assets/image/owed.svg') }}" alt="You are owed" class="w-40 h-40">
         </div>
 
         <!-- You owe -->
@@ -76,7 +76,7 @@
                 <h2 class="text-lg font-bold text-red-600">You owe</h2>
                 <p class="text-3xl mt-2 text-red-600">Rp {{ number_format($youOwe, 2) }}</p>
             </div>
-            <img src="{{ asset('assets/image/owe.svg') }}" alt="You owe" class="w-24 h-24">
+            <img src="{{ asset('assets/image/owe.svg') }}" alt="You owe" class="w-40 h-40">
         </div>
 
         <!-- Bill Split Visualization -->
