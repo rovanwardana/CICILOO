@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HelpController;
 
 // Route untuk guest (tidak perlu login)
 Route::get('/', function () {
@@ -46,7 +47,7 @@ Route::middleware('auth')->group(function () {
     // Other authenticated routes
     Route::get('/friends', fn() => 'Halaman Friends')->name('friends.index');
     Route::get('/settings', fn() => 'Halaman Settings')->name('settings');
-    Route::get('/help', fn() => 'Halaman Help')->name('help');
+    Route::get('/help', [HelpController::class, 'index'])->name('help');
 
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
