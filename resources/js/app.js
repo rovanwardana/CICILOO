@@ -1,4 +1,5 @@
 import './bootstrap';
+import Chart from 'chart.js/auto';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Toggle Sidebar

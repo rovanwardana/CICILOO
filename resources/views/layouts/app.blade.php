@@ -35,7 +35,7 @@
             </div>
 
             <!-- Profil -->
-            <a href="{{ route('profile') }}">
+            <a href="{{ route('profile.show') }}">
                 <img src="/assets/icons/user.svg" alt="User" class="w-[24px] h-[24px] cursor-pointer">
             </a>
 
