@@ -3,9 +3,11 @@
 @section('title', 'New Bill')
 
 @section('content')
-    <div class="bg-white p-6 rounded-xl shadow max-w-4xl mx-auto">
-        <h1 class="text-2xl font-semibold text-gray-800 mb-6">New Bill</h1>
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-semibold text-gray-800">New Bill</h1>
+    </div>
 
+    <div class="bg-white rounded-xl shadow p-6">
         <!-- Tabs: Split Bill / Group Bill -->
         {{-- <div class="flex space-x-6 border-b mb-6">
             <button id="split-bill-tab" class="px-4 py-2 font-medium text-blue-600 border-b-2 border-blue-600">Split
@@ -63,13 +65,13 @@
                                     <input type="text" name="items[0][name]" placeholder="Enter item name"
                                         class="w-full rounded border-gray-300 focus:ring-blue-500" required />
                                 </div>
-                                <div class="w-24">
+                                <div class="w-full sm:w-24">
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
                                     <input type="number" name="items[0][qty]" value="1" min="1"
                                         class="w-full rounded border-gray-300 focus:ring-blue-500 quantity-input"
                                         required />
                                 </div>
-                                <div class="w-32">
+                                <div class="w-full sm:w-32">
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Unit Price</label>
                                     <div class="flex items-center">
                                         <span class="text-gray-500 mr-2">Rp.</span>
@@ -100,7 +102,7 @@
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Split Method</label>
                     <select name="split_method" id="split-method"
-                        class="w-48 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                        class="w-full sm:w-48 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                         <option value="equal">Equal</option>
                         <option value="custom">Custom</option>
                     </select>
@@ -127,7 +129,7 @@
                             <div class="flex items-center">
                                 <input type="number" name="tax_percentage" id="tax-percentage" value="0"
                                     min="0" max="100" step="0.1"
-                                    class="w-24 rounded border-gray-300 focus:ring-blue-500" />
+                                    class="w-full sm:w-24 rounded border-gray-300 focus:ring-blue-500" />
                                 <span class="ml-2 text-gray-500">%</span>
                             </div>
                         </div>
@@ -136,7 +138,7 @@
                             <div class="flex items-center">
                                 <span class="text-gray-500 mr-2">Rp.</span>
                                 <input type="number" name="discount" id="discount" value="0" min="0"
-                                    step="0.01" class="w-32 rounded border-gray-300 focus:ring-blue-500" />
+                                    step="0.01" class="w-full sm:w-32 rounded border-gray-300 focus:ring-blue-500" />
                             </div>
                         </div>
                     </div>
@@ -182,10 +184,10 @@
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="flex justify-end space-x-4">
+                <div class="flex flex-col sm:flex-row justify-end gap-4">
                     <button type="button"
-                        class="px-6 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save
+                        class="px-6 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 order-2 sm:order-1">Cancel</button>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 order-1 sm:order-2">Save
                         Bill</button>
                 </div>
             </form>
@@ -242,11 +244,11 @@
                             <label class="block text-sm font-medium text-gray-700 mb-1">Item Name</label>
                             <input type="text" name="items[${itemCount}][name]" placeholder="Enter item name" class="w-full rounded border-gray-300 focus:ring-blue-500" required />
                         </div>
-                        <div class="w-24">
+                        <div class="w-full sm:w-24">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
                             <input type="number" name="items[${itemCount}][qty]" value="1" min="1" class="w-full rounded border-gray-300 focus:ring-blue-500 quantity-input" required />
                         </div>
-                        <div class="w-32">
+                        <div class="w-full sm:w-32">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Unit Price</label>
                             <div class="flex items-center">
                                 <span class="text-gray-500 mr-2">Rp.</span>
@@ -295,7 +297,7 @@
                             ${window.allUsers.map(user => `<option value="${user.id}">${user.name}</option>`).join('')}
                         </select>
                     </div>
-                    <div class="w-12">
+                    <div class="w-full sm:w-12">
                         <button type="button" class="text-red-600 hover:text-red-700 remove-participant mt-6">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -317,7 +319,6 @@
                 updateParticipantItems();
             });
 
-            // Calculate Totals
             // Calculate Totals
             function calculateTotals() {
                 itemsData = [];
