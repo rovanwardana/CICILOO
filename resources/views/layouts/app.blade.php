@@ -11,18 +11,15 @@
 <body class="bg-[#EEF1F9] px-[20px] py-[24px]">
 
     <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 h-[57px] bg-[#EEF1F9] flex justify-between items-center px-[20px] z-20">
+    <header class="fixed top-0 left-0 right-0 h-[57px] bg-[#EEF1F9] flex justify-between items-center px-[57px] z-20">
         <!-- Logo -->
         <div class="flex items-center gap-2 text-[#071739]">
             <img src="/assets/image/logo.svg" alt="logo" class="w-[117px] h-[52px] object-contain">
             <span class="text-xl font-bold"></span>
         </div>
 
-        <!-- Search & Icons -->
+        <!-- User Actions -->
         <div class="flex items-center gap-4">
-            <input type="text" placeholder="Search..."
-                class="w-[200px] px-[16px] py-[8px] rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4B6382] text-sm bg-[#D7D9E1]" />
-            <!-- Di dalam header, ganti bagian notifikasi -->
             <!-- Notifikasi -->
             <div class="relative">
                 <button id="notificationButton" class="cursor-pointer focus:outline-none">
@@ -37,10 +34,15 @@
                 </div>
             </div>
 
+            <!-- Profil -->
             <a href="{{ route('profile') }}">
                 <img src="/assets/icons/user.svg" alt="User" class="w-[24px] h-[24px] cursor-pointer">
             </a>
-            <img src="/assets/icons/log-out.svg" alt="Logout" class="w-[24px] h-[24px] cursor-pointer">
+
+            <!-- Logout -->
+            <a href="#" class="flex items-center gap-2">
+                <img src="/assets/icons/log-out.svg" alt="Logout" class="w-[24px] h-[24px] cursor-pointer">
+            </a>
         </div>
     </header>
 
@@ -133,7 +135,6 @@
             </div>
 
             <!-- Help & Logout -->
-
             <div class="flex flex-col gap-4">
                 @include('logout_popup')
                 <a href="#"
@@ -149,7 +150,7 @@
                     <span class="label">Help</span>
                 </a>
                 <a href="#"
-                    class="flex items-center gap-2 px-4 h-[52px] rounded-[9px] text-white hover:bg-[#2a3950]">
+                    class="flex items-center gap-2 px-4 h-[52px] rounded-[9px] text-white hover:bg-[#2a3950] mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m16 17 5-5-5-5" />
@@ -168,5 +169,4 @@
     </div>
     @stack('scripts')
 </body>
-
 </html>

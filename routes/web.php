@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     
     // Profile routes
     Route::get('/profile', [UserController::class, 'edit'])->name('profile');
-    Route::post('/profile', [UserController::class, 'update'])->name('profile.update');
+    Route::post('/profile', [UserController::class, 'update'])->name('profile');
     
     // Other authenticated routes
     Route::get('/friends', fn() => 'Halaman Friends')->name('friends.index');
