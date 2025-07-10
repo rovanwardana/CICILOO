@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
 
 // Route untuk guest (tidak perlu login)
 Route::get('/', function () {
@@ -33,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/transaction/{id}', [BillController::class, 'destroy'])->name('transaction.destroy');
 
     //Notif
-    Route::get('/notifications', [TransactionController::class, 'notifications'])->name('notification.index');
+    Route::get('/notifications', [NotificationController::class, 'index']);
 
     // Bill routes
     Route::get('/bills/create', [BillController::class, 'create'])->name('bills.create');
