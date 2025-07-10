@@ -73,21 +73,22 @@
             <ul class="mt-4 space-y-4 text-gray-700">
                 <li class="flex justify-between items-center" data-notify="true">
                     <span>💸 John paid you</span>
-                    <span class="font-semibold">Rp 50.000</span>
-                </li>
+                    <span class="font-semibold">Rp 50.000</span> <br>
+                </li> 
                 <li class="flex justify-between items-center" data-notify="true">
                     <span>💰 You owe Emma</span>
-                    <span class="font-semibold">Rp 20.000</span>
-                </li>
+                    <span class="font-semibold">Rp 20.000</span> <br>
+                </li> 
                 <!-- Item lain tanpa notifikasi -->
-            </ul>
+            </ul> <br>  
             <li class="flex justify-between items-center">
-                <span>📋 New bill created: <strong>Lunch</strong></span>
-            </li>
-            <li class="flex justify-between items-center text-gray-500 text-sm">
-                <span>💸 John paid you (Yesterday)</span>
-                <span class="font-semibold">Rp 50.000</span>
-            </li>
+                <span>📋 New bill created: <bold>Lunch</bold></span> <br>
+            </li> <br>
+            <h2 class="text-lg font-semibold text-gray-700">Yesterday</h2>
+            <li class="flex justify-between items-center" data-notify="true">
+                <span>💸 John paid you</span>
+                <span class="font-semibold">Rp 50.000</span> <br>
+            </li> 
             </ul>
         </div>
     </div>
