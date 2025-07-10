@@ -7,11 +7,11 @@
         <h1 class="text-2xl font-semibold text-gray-800 mb-6">New Bill</h1>
 
         <!-- Tabs: Split Bill / Group Bill -->
-        <div class="flex space-x-6 border-b mb-6">
+        {{-- <div class="flex space-x-6 border-b mb-6">
             <button id="split-bill-tab" class="px-4 py-2 font-medium text-blue-600 border-b-2 border-blue-600">Split
                 Bill</button>
             <button id="group-bill-tab" class="px-4 py-2 font-medium text-gray-500 hover:text-blue-600">Group Bill</button>
-        </div>
+        </div> --}}
 
         <!-- Split Bill Section -->
         <div id="split-bill-content">
@@ -191,7 +191,7 @@
             </form>
         </div>
 
-        <!-- Group Bill Section (Unchanged) -->
+        {{-- <!-- Group Bill Section (Unchanged) -->
         <div id="group-bill-content" class="hidden">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Group Bill</h2>
             <p class="text-sm text-gray-600 mb-4">
@@ -216,7 +216,7 @@
                 <button class="mt-4 px-4 py-2 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200">+ Add New
                     Bill</button>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection
 

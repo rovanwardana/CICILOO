@@ -6,13 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $fillable = [
-        'bill_id',
-        'name',
-        'qty',          // Gantilah 'quantity' dengan 'qty' sesuai dengan nama kolom di tabel
-        'price',
-        'assigned_to'
-    ];
+    protected $fillable = ['bill_id', 'name', 'qty', 'price', 'assigned_to'];
 
     public function bill()
     {

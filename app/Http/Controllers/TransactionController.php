@@ -23,4 +23,28 @@ class TransactionController extends Controller
         ]);
         return redirect()->route('transaction.index')->with('success', 'Transaction added successfully.');
     }
+
+    public function updateParticipantStatus(Request $request)
+    {
+        $request->validate([
+            'bill_user_id' => 'required|exists:bill_user,id',
+            'status' => 'required|in:Pending,Paid',
+        ]);
+
+        $billUser = \App\Models\BillUser::find($request->bill_user_id);
+        $billUser->payment_status = $request->status;
+        $billUser->save();
+
+        // Cek apakah semua peserta sudah Paid → update transaksi
+        $bill = $billUser->bill;
+        $allPaid = $bill->participants()->wherePivot('payment_status', '!=', 'Paid')->count() === 0;
+
+        if ($allPaid) {
+            $transaction = \App\Models\Transaction::where('bill_id', $bill->id)->first();
+            $transaction->status = 'Paid';
+            $transaction->save();
+        }
+
+        return response()->json(['success' => true]);
+    }
 }

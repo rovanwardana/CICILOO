@@ -27,7 +27,8 @@ Route::middleware('auth')->group(function () {
     // Transaction routes
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
     Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
-    
+    Route::post('/transaction/update-statuses', [BillController::class, 'updateStatuses'])->name('transaction.updateStatuses');
+    Route::delete('/transaction/{id}', [BillController::class, 'destroy'])->name('transaction.destroy');
 
     //Notif
     Route::get('/notifications', [TransactionController::class, 'notifications'])->name('notification.index');
