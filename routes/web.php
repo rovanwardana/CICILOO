@@ -8,6 +8,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\FriendsController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\HelpController;
+
 
 // Route untuk guest (tidak perlu login)
 Route::get('/', function () {
@@ -44,10 +48,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
-    // Other authenticated routes
-    Route::get('/friends', fn() => 'Halaman Friends')->name('friends.index');
-    Route::get('/settings', fn() => 'Halaman Settings')->name('settings');
-    Route::get('/help', fn() => 'Halaman Help')->name('help');
+    // Friends routes
+    Route::get('/friends', [FriendsController::class, 'index'])->name('friends.index');
+
+    // Settings routes
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+
+    // Help routes
+    Route::get('/help', [HelpController::class, 'index'])->name('help');
 
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
