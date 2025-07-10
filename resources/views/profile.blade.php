@@ -33,7 +33,7 @@
         <!-- Profile Info -->
         <div style="flex: 1; min-width: 200px;">
             <h2 style="font-size: clamp(1.5rem, 2.5vw, 1.75rem); font-weight: bold; color: #071739;">{{ $user->name }}</h2>
-            <p style="color: #6b7280; font-size: clamp(0.875rem, 1.5vw, 1rem);">Terakhir aktif: {{ $user->updated_at->format('d M Y, H:i') }}</p>
+            <p style="color: #6b7280; font-size: clamp(0.875rem, 1.5vw, 1rem);">Terakhir aktif: {{ $user->updated_at->setTimezone('Asia/Makassar')->format('d M Y, H:i') }}</p>
         </div>
     </div>
 
