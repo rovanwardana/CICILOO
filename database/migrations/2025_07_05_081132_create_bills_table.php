@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->date('due_date');
+            $table->date('due_date')->nullable(); // Diubah menjadi nullable
             $table->string('bill_type');
             $table->string('bill_number')->unique();
-            $table->foreignId('customer_id')->constrained('users')->onDelete('cascade');
-            $table->string('split_method');
+            $table->foreignId('customer_id')->constrained('users')->onDelete('restrict'); // Diubah ke restrict
+            $table->enum('split_method', ['equal', 'custom'])->default('equal'); // Ditentukan nilai enum
             $table->text('notes')->nullable();
-            $table->decimal('total_amount', 10, 2)->nullable(); // Tambahan
+            $table->decimal('total_amount', 10, 2)->nullable();
             $table->timestamps();
         });
     }

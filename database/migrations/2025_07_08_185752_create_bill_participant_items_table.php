@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,10 +15,14 @@ return new class extends Migration
             $table->foreignId('bill_user_id')->constrained('bill_user')->onDelete('cascade');
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
             $table->integer('qty');
+            $table->unique(['bill_user_id', 'item_id']); // Menambahkan indeks unik
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('bill_participant_items');
