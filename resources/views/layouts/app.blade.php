@@ -137,7 +137,7 @@
             <!-- Help & Logout -->
             <div class="flex flex-col gap-4">
                 @include('logout_popup')
-                <a href="#"
+                <a href="{{ route('help') }}"
                     class="menu-item flex items-center gap-2 px-4 h-[52px] rounded-[9px] transition-all duration-200 
                         {{ request()->routeIs('help') ? 'bg-[#A4B5C4] text-[#071739]' : 'text-white hover:bg-[#2a3950]' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

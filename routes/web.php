@@ -7,7 +7,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+<<<<<<< HEAD
 use App\Http\Controllers\HelpController;
+=======
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\FriendsController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\HelpController;
+
+>>>>>>> a73c0efd6e71275bbf818f59b7711aeaa96fae61
 
 // Route untuk guest (tidak perlu login)
 Route::get('/', function () {
@@ -34,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/transaction/{id}', [BillController::class, 'destroy'])->name('transaction.destroy');
 
     //Notif
-    Route::get('/notifications', [TransactionController::class, 'notifications'])->name('notification.index');
+    Route::get('/notifications', [NotificationController::class, 'index']);
 
     // Bill routes
     Route::get('/bills/create', [BillController::class, 'create'])->name('bills.create');
@@ -44,9 +52,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
+<<<<<<< HEAD
     // Other authenticated routes
     Route::get('/friends', fn() => 'Halaman Friends')->name('friends.index');
     Route::get('/settings', fn() => 'Halaman Settings')->name('settings');
+=======
+    // Friends routes
+    Route::get('/friends', [FriendsController::class, 'index'])->name('friends.index');
+
+    // Settings routes
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+
+    // Help routes
+>>>>>>> a73c0efd6e71275bbf818f59b7711aeaa96fae61
     Route::get('/help', [HelpController::class, 'index'])->name('help');
 
     // Logout route
