@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class FriendsController extends Controller
 {
+
     /**
      * Display a listing of the user's friends.
      */
@@ -25,6 +26,7 @@ class FriendsController extends Controller
             $friends = $friends->map(function ($friend) use ($user) {
                 $balance = 0; // Placeholder, ganti dengan logika transaksi jika ada
                 $lastTransactionDate = $friend->pivot->created_at ?? null;
+                $isSender = $friend->pivot->user_id === $user->id; // Cek apakah Anda pengirim
 
                 return (object) [
                     'id' => $friend->id,
@@ -32,6 +34,7 @@ class FriendsController extends Controller
                     'balance' => $balance,
                     'last_transaction_date' => $lastTransactionDate,
                     'status' => $friend->pivot->status ?? 'accepted',
+                    'is_sender' => $isSender, // Tambahkan flag untuk menentukan pengirim
                 ];
             });
 
@@ -90,7 +93,7 @@ class FriendsController extends Controller
                 })
                 ->limit(5)
                 ->get();
-            Log::info('Suggested friends:', $suggested->toArray());
+            Log::info('Suggested friends for user ' . $user->id . ':', $suggested->toArray());
             return $suggested;
         } catch (\Exception $e) {
             Log::error('Error in getSuggestedFriends: ' . $e->getMessage());
@@ -110,7 +113,8 @@ class FriendsController extends Controller
             $results = User::where('id', '!=', $user->id)
                 ->whereDoesntHave('friends', function ($query) use ($user) {
                     $query->where(function ($q) use ($user) {
-                        $q->where('friend_id', $user->id)->orWhere('user_id', $user->id);
+                        $q->where('friend_id', $user->id)
+                            ->orWhere('user_id', $user->id);
                     });
                 })
                 ->where(function ($q) use ($query) {
@@ -120,9 +124,50 @@ class FriendsController extends Controller
                 ->limit(5)
                 ->get(['id', 'name']);
 
+            Log::info('Search results for user ' . $user->id . ' with query ' . $query . ':', $results->toArray());
             return response()->json(['success' => true, 'data' => $results]);
         } catch (\Exception $e) {
             Log::error('Error in FriendsController@searchFriends: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again.'], 500);
+        }
+    }
+
+
+    public function acceptFriend(Request $request, $friendId)
+    {
+        try {
+            $user = Auth::user();
+            $friend = User::findOrFail($friendId);
+
+            $existing = $user->friends()->where('friend_id', $friendId)->first();
+            if ($existing && $existing->pivot->status === 'pending') {
+                $user->friends()->updateExistingPivot($friendId, ['status' => 'accepted']);
+                // Tambahkan entri balik jika belum ada
+                if (!$friend->friends()->where('friend_id', $user->id)->exists()) {
+                    $friend->friends()->attach($user->id, ['status' => 'accepted', 'created_at' => now()]);
+                }
+                return response()->json(['success' => true, 'message' => 'Friend request accepted']);
+            }
+            return response()->json(['success' => false, 'message' => 'No pending request found'], 400);
+        } catch (\Exception $e) {
+            Log::error('Error in FriendsController@acceptFriend: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again.'], 500);
+        }
+    }
+
+    public function removeFriend(Request $request, $friendId)
+    {
+        try {
+            $user = Auth::user();
+            $friend = User::findOrFail($friendId);
+
+            $user->friends()->detach($friendId);
+            // Hapus entri balik jika ada
+            $friend->friends()->detach($user->id);
+
+            return response()->json(['success' => true, 'message' => 'Friend removed successfully']);
+        } catch (\Exception $e) {
+            Log::error('Error in FriendsController@removeFriend: ' . $e->getMessage());
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again.'], 500);
         }
     }

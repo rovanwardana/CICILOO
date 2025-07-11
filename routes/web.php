@@ -11,7 +11,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\HelpController;
-use App\Http\Controllers\FaqController; 
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\TncController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\CookiesController;
@@ -52,9 +52,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
     // Friends routes
-    Route::get('/friends', [FriendsController::class, 'index'])->name('friends.index');
-    Route::post('/friends/search', [FriendsController::class, 'searchFriends'])->name('friends.search')->middleware('auth');
+    Route::get('/friends', [FriendsController::class, 'index'])->name('friends.index')->middleware('auth');
     Route::post('/friends/add', [FriendsController::class, 'addFriend'])->name('friends.add')->middleware('auth');
+    Route::post('/friends/accept/{friendId}', [FriendsController::class, 'acceptFriend'])->name('friends.accept')->middleware('auth');
+    Route::post('/friends/remove/{friendId}', [FriendsController::class, 'removeFriend'])->name('friends.remove')->middleware('auth');
+    Route::post('/friends/search', [FriendsController::class, 'searchFriends'])->name('friends.search')->middleware('auth');
+    
     // Settings routes
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
 
