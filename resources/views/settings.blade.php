@@ -20,7 +20,7 @@
         </h2>
 
         <div class="space-y-4">
-            @foreach ([['Profile settings', 'Edit Profile'], ['Change Password', 'Change'], ['Language', null], ['Currency', null]] as [$label, $button])
+            @foreach ([['Profile settings', 'Edit Profile'], ['Change Password', 'Change'], ['Language', null]] as [$label, $button])
                 <div class="flex justify-between items-center">
                     <div>
                         <p class="font-medium text-sm text-gray-700">{{ $label }}</p>
@@ -28,7 +28,6 @@
                             @if ($label === 'Profile settings') Update your personal informations
                             @elseif ($label === 'Change Password') Update your account password
                             @elseif ($label === 'Language') Choose your preferred language
-                            @elseif ($label === 'Currency') Set your default currency
                             @endif
                         </p>
                     </div>
@@ -130,36 +129,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Help & Support -->
-    <div class="bg-white rounded-xl shadow p-6">
-        <h2 class="text-lg font-medium text-gray-800 mb-4 flex items-center space-x-2">
-            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9a6 6 0 10-12 0c0 4 6 11 6 11s6-7 6-11zM12 11a1 1 0 110-2 1 1 0 010 2z"></path>
-            </svg>
-            <span>Help & Support</span>
-        </h2>
-
-        @foreach (['Frequently Asked Questions', 'Contact Support', 'Terms & Conditions', 'Privacy Policy'] as $item)
-        <div class="flex justify-between items-center mb-2">
-            <div>
-                <p class="text-sm font-medium text-gray-700">{{ $item }}</p>
-                <p class="text-sm text-gray-500">
-                    @if ($item === 'Frequently Asked Questions') Get answers to common questions
-                    @elseif ($item === 'Contact Support') Get help from our support team
-                    @elseif ($item === 'Terms & Conditions') Read our terms of service
-                    @elseif ($item === 'Privacy Policy') Learn how we handle your data
-                    @endif
-                </p>
-            </div>
-            <button class="text-sm px-4 py-1.5 border rounded-md text-gray-700 hover:bg-gray-100">
-                @if ($item === 'Frequently Asked Questions') View FAQ
-                @elseif ($item === 'Contact Support') Contact
-                @else View
-                @endif
-            </button>
         </div>
-        @endforeach
     </div>
 </div>
 @endsection

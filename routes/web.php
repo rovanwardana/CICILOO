@@ -11,7 +11,10 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\HelpController;
-
+use App\Http\Controllers\FaqController; 
+use App\Http\Controllers\TncController;
+use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\CookiesController;
 
 // Route untuk guest (tidak perlu login)
 Route::get('/', function () {
@@ -57,6 +60,10 @@ Route::middleware('auth')->group(function () {
 
     // Help routes
     Route::get('/help', [HelpController::class, 'index'])->name('help');
+    Route::get('/help/faq', [FaqController::class, 'index'])->name('faq');
+    Route::get('/help/tnc', [TncController::class, 'index'])->name('tnc');
+    Route::get('/help/privacy', [PrivacyController::class, 'index'])->name('privacy');
+    Route::get('/help/cookies', [CookiesController::class, 'index'])->name('cookies');
 
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
