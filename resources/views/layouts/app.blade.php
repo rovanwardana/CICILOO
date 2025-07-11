@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('assets/image/logo2.svg') }}">
     <title>@yield('title') | Ciciloo</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
