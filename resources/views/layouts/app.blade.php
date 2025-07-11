@@ -6,6 +6,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>@yield('title') | Ciciloo</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="bg-[#EEF1F9] px-[20px] py-[24px]">

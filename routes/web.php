@@ -50,7 +50,8 @@ Route::middleware('auth')->group(function () {
 
     // Friends routes
     Route::get('/friends', [FriendsController::class, 'index'])->name('friends.index');
-
+    Route::post('/friends/search', [FriendsController::class, 'searchFriends'])->name('friends.search')->middleware('auth');
+    Route::post('/friends/add', [FriendsController::class, 'addFriend'])->name('friends.add')->middleware('auth');
     // Settings routes
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
 

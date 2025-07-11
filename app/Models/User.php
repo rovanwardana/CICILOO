@@ -59,4 +59,18 @@ class User extends Authenticatable
         return $this->belongsToMany(Item::class, 'bill_participant_items', 'bill_user_id', 'item_id')
             ->withPivot('qty');
     }
+
+    public function friends()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
+            ->withPivot('status', 'created_at')
+            ->withTimestamps();
+    }
+
+    public function friendRequests()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')
+            ->wherePivot('status', 'pending')
+            ->wherePivot('user_id', '!=', auth()->id());
+    }
 }
