@@ -1,5 +1,7 @@
 @extends('layouts.app')
+
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 @section('title', 'Transaction')
 
 @section('content')
@@ -66,8 +68,6 @@
                                     <div>
                                         <p><strong>Pembuat:</strong>
                                             @if ($withUser)
-                                                <img src="https://via.placeholder.com/24" alt="User"
-                                                    class="rounded-full inline-block mr-2" />
                                                 {{ $withUser->name }}
                                             @else
                                                 Tidak Ada
@@ -87,7 +87,8 @@
                                                     @endphp
                                                     <div
                                                         class="ml-4 mt-2 border border-gray-200 p-3 rounded-lg bg-white shadow-sm">
-                                                        <p class="font-semibold text-gray-700">{{ $participant->name }}:</p>
+                                                        <p class="font-semibold text-gray-700">{{ $participant->name }}:
+                                                        </p>
                                                         @if ($splitMethod === 'custom' && $userItems->isNotEmpty())
                                                             <ul class="list-disc pl-5 text-sm text-gray-600">
                                                                 @foreach ($userItems as $item)
@@ -157,24 +158,24 @@
                     const transactionId = button.getAttribute('data-id');
                     if (confirm('Are you sure you want to delete this transaction?')) {
                         fetch(`/transaction/${transactionId}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Content-Type': 'application/json',
-                            },
-                        })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success) {
-                                location.reload();
-                            } else {
-                                alert('Gagal menghapus transaksi.');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Terjadi kesalahan saat menghapus transaksi.');
-                        });
+                                method: 'DELETE',
+                                headers: {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    'Content-Type': 'application/json',
+                                },
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    location.reload();
+                                } else {
+                                    alert('Gagal menghapus transaksi.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Terjadi kesalahan saat menghapus transaksi.');
+                            });
                     }
                 });
             });
@@ -197,28 +198,28 @@
                     });
 
                     fetch('/transaction/update-statuses', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            transaction_id: transactionId,
-                            statuses: statuses,
-                        }),
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            location.reload();
-                        } else {
-                            alert('Gagal menyimpan status.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Terjadi kesalahan saat menyimpan status.');
-                    });
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                transaction_id: transactionId,
+                                statuses: statuses,
+                            }),
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                location.reload();
+                            } else {
+                                alert('Gagal menyimpan status.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Terjadi kesalahan saat menyimpan status.');
+                        });
                 });
             });
         });
